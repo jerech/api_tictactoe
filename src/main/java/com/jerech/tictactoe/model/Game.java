@@ -19,6 +19,9 @@ public class Game {
 	private Object _id;
 	
 	@NotEmpty
+	private String createdUser;
+	
+	@NotEmpty
 	private String lastUser;
 	
 	private String winner;
@@ -31,6 +34,14 @@ public class Game {
 	
 	@DateTimeFormat(iso = ISO.DATE_TIME)
 	private Date finishDate;
+	
+	public String getCreatedUser() {
+		return createdUser;
+	}
+
+	public void setCreatedUser(String createdUser) {
+		this.createdUser = createdUser;
+	}
 
 	public Object get_id() {
 		return _id;
@@ -79,6 +90,8 @@ public class Game {
 	public void setFinishDate(Date finishDate) {
 		this.finishDate = finishDate;
 	}
+
+	
 	
 	
 
