@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Null;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -58,11 +59,13 @@ public class GamesController {
 	
 	@ApiOperation(value = "Get Page Games for User!", response = GameDto.class)
 	@RequestMapping(value = "/games/page", method = RequestMethod.GET)
-	public Page<GameDto> getPage(@RequestParam("page") @Min(value=0, message="Min value is 0") Integer page,
-			@RequestParam("sort") @NotEmpty(message="Field not empty") String sort,
+	public Page<GameDto> getPage(@RequestParam("userName") @NotEmpty(message="User Name not empty") String userName,
+			@RequestParam("page") @Min(value=0, message="Min value is 0") Integer page,
+			@RequestParam("sizePage") @Min(value=1, message="Min value is 1") Integer sizePage,
+			@RequestParam("sort") String sort,
 			@RequestParam("isAsc") boolean isAsc) {
 		
-		return gamesService.getPage(page, sort, isAsc);
+		return gamesService.getPage(userName, page,sizePage, sort, isAsc);
 	}
 	
 	

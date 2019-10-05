@@ -33,17 +33,17 @@ public interface GamesService {
 	/**
      * Get list of Games for user
      *
-     * @param name
+     * @param userName
      * @return List<GameDto>
      */
-	List<GameDto> getAll(String name);
+	List<GameDto> getAll(String userName);
 	
 	
 	/**
      * Get list of Games for user with pagination
      *
-     * @param name
+     * @param userName
      * @return Page<GameDto>
      */
-	Page<GameDto> getPage(Integer page, String sort, boolean isAsc);
+	Page<GameDto> getPage(String userName, Integer page, Integer sizePage, String sort, boolean isAsc);
 }

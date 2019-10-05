@@ -9,6 +9,8 @@ import java.util.Date;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
@@ -16,7 +18,8 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 @Document(collection = "games")
 public class Game {
 	
-	private Object _id;
+	@Id
+	private ObjectId _id;
 	
 	@NotEmpty
 	private String createdUser;
@@ -43,11 +46,11 @@ public class Game {
 		this.createdUser = createdUser;
 	}
 
-	public Object get_id() {
+	public ObjectId get_id() {
 		return _id;
 	}
 
-	public void set_id(Object _id) {
+	public void set_id(ObjectId _id) {
 		this._id = _id;
 	}
 

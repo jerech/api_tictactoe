@@ -13,5 +13,6 @@ import com.jerech.tictactoe.model.Game;
 public interface GameRepository extends MongoRepository<Game, String>{
 	
 	List<Game> findByWinner(String winner);
+	List<Game> findByCreatedUser(String createdUser);
 
 }
