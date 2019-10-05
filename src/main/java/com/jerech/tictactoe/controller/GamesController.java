@@ -6,9 +6,9 @@ package com.jerech.tictactoe.controller;
 
 import java.util.List;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Null;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,7 +22,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jerech.tictactoe.dto.GameDto;
+import com.jerech.tictactoe.dto.PlayDto;
+import com.jerech.tictactoe.model.Game;
 import com.jerech.tictactoe.service.GamesService;
+import com.jerech.tictactoe.service.GamesServiceImpl;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,10 +40,22 @@ public class GamesController {
 
 	@ApiOperation(value = "Start Game", response = GameDto.class)
 	@RequestMapping(value = "/games/start", method = RequestMethod.POST)
-	public ResponseEntity<GameDto> hello(@RequestParam() @NotEmpty(message="User Name not empty") String userName) {
+	public ResponseEntity<GameDto> start(@RequestParam() @NotEmpty(message="User Name not empty") String userName) {
 		
-		return new ResponseEntity<GameDto>(gamesService.start(userName), HttpStatus.OK);
+		return new ResponseEntity<GameDto>(gamesService.start(userName), HttpStatus.CREATED);
 	}
+	
+	@ApiOperation(value = "Play Game", response = GameDto.class)
+	@RequestMapping(value = "/games/play", method = RequestMethod.POST)
+	public ResponseEntity<PlayDto> play(@RequestParam() @NotEmpty(message="Id not empty") String idGame,
+			@RequestParam("position") @Min(value=0, message="Min value is 0") @Max(value=8, message="Max value is 8") Integer position) {
+		PlayDto playDtoUser = gamesService.play(idGame, position, Game.USER_MARK);
+		PlayDto playDtoComputer = gamesService.playComputer(idGame, playDtoUser.getCurrentGame().getBoard());
+		
+		return new ResponseEntity<PlayDto>(playDtoComputer, HttpStatus.OK);
+		
+	}
+	
 	
 	@ApiOperation(value = "Get Game", response = GameDto.class)
 	@RequestMapping(value = "/games/{id}", method = RequestMethod.GET)

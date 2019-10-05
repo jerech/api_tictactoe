@@ -18,6 +18,10 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 @Document(collection = "games")
 public class Game {
 	
+	public static final String USER_MARK = "X";
+	public static final String COMPUTER_MARK = "O";
+	
+	
 	@Id
 	private ObjectId _id;
 	
