@@ -1,0 +1,46 @@
+version: '3'
+services:
+    nginx:
+      container_name: tictactoe-nginx
+      image: nginx:1.13
+      restart: always
+      ports:
+        - 8099:80
+        - 443:443
+      volumes:
+        - ./etc/nginx/conf.d:/etc/nginx/conf.d
+      depends_on:
+        - app
+    mongodb:
+      container_name: tictactoe-mongo
+      image: mongo:3.6
+      environment:
+        - MONGO_DATA_DIR=/data/db
+        - MONGO_LOG_DIR=/dev/null
+        - MONGO_INITDB_DATABASE = admin
+        - MONGO_INITDB_ROOT_PASSWORD = 123456
+        - MONGO_INITDB_ROOT_USERNAME = admin
+      volumes:
+        - ./data/db:/data/db
+      ports:
+        - 27017:27017
+      command: mongod --smallfiles --logpath=/dev/null # --quiet db.createUser({ user:'jerech', pwd:'123456', roles:[{role:'readWrite',db:'tictactoe'}]})
+    app:
+      restart: always
+      build: ./app
+      working_dir: /app
+      environment:
+        - MONGODB_HOST=${MONGODB_HOST}
+        - MONGODB_PORT=${MONGODB_PORT}
+        - MONGODB_AUTH_DB=${MONGODB_AUTH_DB}
+        - MONGODB_USER=${MONGODB_USER}
+        - MONGODB_PASSWORD=${MONGODB_PASSWORD}
+        - MONGODB_DATABASE=${MONGODB_DATABASE}
+      volumes:
+        - ./app:/app
+        - ~/.m2:/root/.m2
+      expose:
+        - "8080"
+      command: mvn clean spring-boot:run
+      depends_on:
+        - mongodb

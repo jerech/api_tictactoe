@@ -25,7 +25,6 @@ import com.jerech.tictactoe.dto.GameDto;
 import com.jerech.tictactoe.dto.PlayDto;
 import com.jerech.tictactoe.model.Game;
 import com.jerech.tictactoe.service.GamesService;
-import com.jerech.tictactoe.service.GamesServiceImpl;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

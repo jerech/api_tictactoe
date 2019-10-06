@@ -10,7 +10,6 @@ import org.springframework.data.domain.Page;
 
 import com.jerech.tictactoe.dto.GameDto;
 import com.jerech.tictactoe.dto.PlayDto;
-import com.jerech.tictactoe.model.Game;
 
 
 public interface GamesService {

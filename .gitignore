@@ -34,3 +34,6 @@ build/
 .classpath
 .project
 .settings/
+
+# Data
+/data
