@@ -17,9 +17,6 @@ services:
       environment:
         - MONGO_DATA_DIR=/data/db
         - MONGO_LOG_DIR=/dev/null
-        - MONGO_INITDB_DATABASE=admin
-        - MONGO_INITDB_ROOT_PASSWORD=123456
-        - MONGO_INITDB_ROOT_USERNAME=admin
       volumes:
         - ./data/db:/data/db
       ports:
