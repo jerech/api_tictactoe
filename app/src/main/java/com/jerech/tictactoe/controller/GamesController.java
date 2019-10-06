@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.StringUtils;
 
 import com.jerech.tictactoe.dto.GameDto;
 import com.jerech.tictactoe.dto.PlayDto;
@@ -49,6 +50,9 @@ public class GamesController {
 	public ResponseEntity<PlayDto> play(@RequestParam() @NotEmpty(message="Id not empty") String idGame,
 			@RequestParam("position") @Min(value=0, message="Min value is 0") @Max(value=8, message="Max value is 8") Integer position) {
 		PlayDto playDtoUser = gamesService.play(idGame, position, Game.USER_MARK);
+		if(!StringUtils.isEmpty(playDtoUser.getCurrentGame().getWinner())){
+			return new ResponseEntity<PlayDto>(playDtoUser, HttpStatus.OK);
+		}
 		PlayDto playDtoComputer = gamesService.playComputer(idGame, playDtoUser.getCurrentGame().getBoard());
 		
 		return new ResponseEntity<PlayDto>(playDtoComputer, HttpStatus.OK);

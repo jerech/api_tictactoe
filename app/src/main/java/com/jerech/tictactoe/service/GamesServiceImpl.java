@@ -126,7 +126,7 @@ public class GamesServiceImpl implements GamesService{
 		}
 		
 		gameRepository.save(game);
-		return playDto == null ? new PlayDto(mark.equals(Game.USER_MARK) ? "You turn!" : "Computer turn!", convertToDto(game)) : playDto;
+		return playDto == null ? new PlayDto(mark.equals(Game.USER_MARK) ? "Computer turn!" : "You turn!", convertToDto(game)) : playDto;
 	}
 	
 	@Override
