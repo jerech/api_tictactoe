@@ -23,7 +23,7 @@ public class SwaggerConfig {
     @Bean
     public Docket api() { 
         return new Docket(DocumentationType.SWAGGER_2)  
-          .host("http://31.220.62.157/api_tictactoe")
+          .host("31.220.62.157/api_tictactoe")
           .select()                                   
           .apis(RequestHandlerSelectors.any())
           .paths(PathSelectors.any())                          
